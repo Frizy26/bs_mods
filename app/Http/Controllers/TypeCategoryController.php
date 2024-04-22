@@ -10,7 +10,7 @@ class TypeCategoryController extends Controller
 {
     public function index()
     {
-        return TypeCategory::all();
+        return TypeCategoryResource::collection(TypeCategory::all());
     }
 
     public function store(TypeCategoryRequest $request)

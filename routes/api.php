@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Resources\{TypeCategoryResource, ProductResource, OrderResource};
-use App\Http\Controllers\{GetController, OrderController, CartController};
-use App\Models\{TypeCategory, Product};
+use App\Http\Resources\{TypeCategoryResource, ProductResource, OrderResource, CartResource};
+use App\Http\Controllers\{GetController, OrderController, CartController, ProductController, TypeCategoryController, AuthUserController};
+use App\Models\{TypeCategory, Product, Order, Cart};
+use Laravel\Sanctum\PersonalAccessToken;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,23 +26,31 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     //Route::get('/get', 'GetController');
 });
 
-
-Route::get('/type_categories/{id}', function (string $id){
-    return new TypeCategoryResource(TypeCategory::findOrFail($id));
+//Тип категории продукта
+Route::controller(TypeCategoryController::class) ->group(function () {
+    Route::get('/type-category', 'index') ->middleware('auth:sanctum');
 });
 
-Route::get('/products/{id}', function (string $id){
-    return new ProductResource(Product::findOrFail($id));
+//Продукты
+Route::controller(ProductController::class) ->group(function () {
+    Route::get('/product', 'index') ->middleware('auth:sanctum');
 });
 
-Route::get('/products', function () {
-    return ProductResource::collection(Product::all());
-});
-
+//Заказы
 Route::controller(OrderController::class) ->group(function () {
-   Route::get('/order', 'index');
+   Route::get('/order', 'index') ->middleware('auth:sanctum');
 });
 
+//Корзина
 Route::controller(CartController::class) ->group(function () {
-    Route::get('/cart', 'index');
+    Route::get('/cart', 'index') ->middleware('auth:sanctum');
 });
+
+//API-TOKEN
+Route::post('/personal-access-tokens', [PersonalAccessToken::class, 'store']) ->middleware('auth:sanctum');
+
+//Регистрация
+Route::post('/register', [AuthUserController::class, 'store']);
+
+//Авторизация
+Route::post('/login', [AuthUserController::class, 'login']);
