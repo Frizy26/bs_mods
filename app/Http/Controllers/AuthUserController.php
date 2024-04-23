@@ -27,6 +27,8 @@ class AuthUserController extends Controller
             'password' => $request->password,
         ]);
 
+        Auth::login($user);
+
         return response($user);
     }
 
@@ -48,5 +50,13 @@ class AuthUserController extends Controller
         }
 
         return response()->json(['error' => 'Unauthorized'], 401);
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return response()->noContent();
     }
 }

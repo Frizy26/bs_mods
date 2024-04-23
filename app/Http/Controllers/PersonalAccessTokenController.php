@@ -12,18 +12,24 @@ class PersonalAccessTokenController extends Controller
 {
     public function store(Request $request)
     {
-       $request->validate([
-           'login' => 'required',
-           'password' => 'required',
-       ]);
+        $request->validate([
+            'login' => 'required',
+            'password' => 'required',
+        ]);
 
-       $user = User::where('login', $request->login)->first();
-       if (! $user || ! Hash::check($request->password, $user->password)) {
-           throw ValidationException::withMessages([
-               'login' => ['Нет такого пользователя.']
-           ]);
-       }
+        $user = User::where('login', $request->login)->first();
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            throw ValidationException::withMessages([
+                'login' => ['Нет такого пользователя.']
+            ]);
+        }
 
-       return ['token' => $user->createToken($request->device_name)->plainTextToken];
+        return ['token' => $user->createToken($request->device_name)->plainTextToken];
+    }
+
+    public function destroy(int $tokenId ,Request $request)
+    {
+        //$request->user()->currentAccessToken()->delete();
+        $request->user()->tokens()->where('id', $tokenId)->delete();
     }
 }

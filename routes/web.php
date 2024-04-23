@@ -14,4 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/register', [AuthUserController::class, 'store']);
+//Регистрация
+Route::post('/register', [AuthUserController::class, 'store'])->middleware('guest');
+
+//Авторизация
+Route::post('/login', [AuthUserController::class, 'login']);
+
+//Деавторизация
+Route::delete('/logout', [AuthUserController::class, 'logout'])->middleware('auth');

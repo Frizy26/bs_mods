@@ -48,9 +48,6 @@ Route::controller(CartController::class) ->group(function () {
 
 //API-TOKEN
 Route::post('/personal-access-tokens', [PersonalAccessToken::class, 'store']) ->middleware('auth:sanctum');
+Route::delete('/personal-access-tokens/{tokenId}', [PersonalAccessToken::class, 'destroy']) ->middleware('auth:sanctum');
 
-//Регистрация
-Route::post('/register', [AuthUserController::class, 'store']);
 
-//Авторизация
-Route::post('/login', [AuthUserController::class, 'login']);
