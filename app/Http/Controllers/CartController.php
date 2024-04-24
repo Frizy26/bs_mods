@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\CartRequest;
 use App\Http\Resources\CartResource;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
+
 
 class CartController extends Controller
 {
@@ -68,7 +69,7 @@ class CartController extends Controller
         ], 201);
     }
 
-    public function delete(Request $request, $productId)
+    public function delete(Request $request, $productId) //не работает
     {
         // Получаем текущую корзину из сессии или создаем новую
         $cart = Cart::find($request->session()->get('cart_id'));

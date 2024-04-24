@@ -43,10 +43,10 @@ Route::controller(OrderController::class)->group(function () {
 
 //Корзина
 Route::controller(CartController::class)->group(function () {
-    Route::get('/cart', 'index');
-    Route::post('/cart/add-product/{id}', 'addItem');
-    Route::delete('/cart/delete-product/{id}', 'destroy');
-})->middleware('auth:sanctum');
+    Route::get('/cart', 'index')->middleware('auth:sanctum');
+    Route::post('/cart/add-product/{id}', 'addItem')->middleware('auth:sanctum');
+    Route::delete('/cart/delete-product/{id}', 'delete')->middleware('auth:sanctum');
+});
 
 //API-TOKEN
 Route::post('/personal-access-tokens', [PersonalAccessToken::class, 'store'])->middleware('auth:sanctum');
