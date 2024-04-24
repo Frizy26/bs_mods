@@ -20,6 +20,14 @@ class UserSeeder extends Seeder
                 'image' => '',
                 'role_id' => '1',
             ],
+            [
+                'name' => 'test',
+                'email' => 'test@gmail.com',
+                'login' => 'test',
+                'password' => Hash::make('test123'),
+                'image' => '',
+                'role_id' => '2',
+            ],
         ]);
     }
 }

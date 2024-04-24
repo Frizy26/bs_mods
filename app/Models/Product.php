@@ -4,7 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @method static find($product_id)
+ */
 class Product extends Model
 {
     protected $fillable = [
@@ -19,11 +24,16 @@ class Product extends Model
 
     public function category():BelongsTo
     {
-        return $this->belongsTo(TypeCategory::class);
+        return $this->belongsTo(TypeCategory::class, 'type_category_id');
     }
 
-    public function product():BelongsTo
+    public function cart(): HasMany
     {
-        return $this->belongsTo(Product::class);
+        return $this->hasMany(Cart::class);
+    }
+
+    public function order(): BelongsToMany
+    {
+        return $this->belongsToMany(Order::class);
     }
 }

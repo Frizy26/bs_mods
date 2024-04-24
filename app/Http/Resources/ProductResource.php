@@ -11,6 +11,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $comment
  * @property mixed $price
  * @property mixed $year
+ * @property mixed $type_category_id
  */
 class ProductResource extends JsonResource
 {
@@ -28,6 +29,7 @@ class ProductResource extends JsonResource
             'comment' => $this->comment,
             'price' => $this->price,
             'year' => $this->year,
+            'type_category_id' => $this->id,
         ];
     }
 }
