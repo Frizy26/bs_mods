@@ -29,7 +29,9 @@ class ProductResource extends Resource
         return $form
             ->schema([
                 Forms\Components\FileUpload::make('image')
+                    ->disk('public')
                     ->image()
+                    ->imageEditor()
                     ->required(),
                 Forms\Components\TextInput::make('title')
                     ->required()
@@ -57,7 +59,7 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('image'),
+                Tables\Columns\ImageColumn::make('image')->disk('public'),
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('comment')

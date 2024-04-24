@@ -9,6 +9,18 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @method static find($product_id)
+ *
+ * @property int $id
+ * @property string $image
+ * @property string $title
+ * @property string $comment
+ * @property int $price
+ * @property string $year
+ * @property int $type_category_id
+ *
+ * @property TypeCategory $category
+ * @property Cart[] $cart
+ * @property Order[] $orders
  */
 class Product extends Model
 {
@@ -32,7 +44,7 @@ class Product extends Model
         return $this->hasMany(Cart::class);
     }
 
-    public function order(): BelongsToMany
+    public function orders(): BelongsToMany
     {
         return $this->belongsToMany(Order::class);
     }

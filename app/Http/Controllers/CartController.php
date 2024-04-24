@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CartRequest;
 use App\Http\Resources\CartResource;
 use App\Models\Cart;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
@@ -45,29 +46,26 @@ class CartController extends Controller
     public function addItem(Request $request, $id)
     {
         // Получаем информацию о товаре
-        $product = Product::findOrFail($id);
+        $product = Product::query()->findOrFail($id);
 
+        $user = Auth::user();
 
-        // Вычисляем стоимость за один товар
-        $itemPrice = $product->price;
-
-        // Получаем идентификатор текущего пользователя
-        $userid = Auth::id();
-
-        // Создаем новую запись в таблице carts
-        $cartItem = new Cart();
-        $cartItem->user_id = $userid;; // Устанавливаем user_id
-        $cartItem->product_id = $id;
-        $cartItem->order_id = $id;
-
-        // Сохраняем запись
-        $cartItem->save();
-
-        // Возвращаем ответ в виде JSON
-        return response()->json([
-            'message' => 'Товар успешно добавлен в корзину',
-            'total_price' => $product->price
+        // Используем firstOrCreate для создания нового заказа, если он не существует
+        $order = $user->orders()->where('is_paid', false)->firstOrCreate([
+            'user_id' => $user->id,
+            'total_price' => $product->price,
         ]);
+
+        // Используем create для создания нового элемента корзины
+        $cartItem = $order->carts()->create([
+            'product_id' => $id,
+        ]);
+
+        // Возвращаем ответ в виде JSON с кодом состояния 201
+        return response()->json([
+            'product' => $product,
+            'cart_item' => $cartItem,
+        ], 201);
     }
 
     public function delete(Request $request, $productId)

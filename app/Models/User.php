@@ -12,7 +12,16 @@ use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
- * @property mixed $id
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property string $login
+ * @property string $password
+ * @property string $image
+ * @property int $role_id
+ *
+ * @property Role $role
+ * @property Order[] $orders
  */
 class User extends Authenticatable
 {
@@ -39,12 +48,7 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public function cart(): HasMany
-    {
-        return $this->hasMany(Cart::class);
-    }
-
-    public function order(): HasMany
+    public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
     }
