@@ -57,11 +57,21 @@ class CartController extends Controller
 
         $user = Auth::user();
 
-        // Используем firstOrCreate для создания нового заказа, если он не существует
-        $order = $user->orders()->where('is_paid', false)->firstOrCreate([
-            'user_id' => $user->id,
-            'total_price' => $product->price,
-        ]);
+        // Ищем активный заказ пользователя
+        $order = $user->orders()->where('is_paid', false)->first();
+
+        // Если заказ не существует, создаем новый заказ
+        if (!$order) {
+            $order = $user->orders()->create([
+                'is_paid' => false,
+                'total_price' => $product->price,
+            ]);
+        } else {
+            // Если заказ существует, обновляем его общую сумму
+            $order->update([
+                'total_price' => $order->total_price + $product->price,
+            ]);
+        }
 
         // Используем create для создания нового элемента корзины
         $cartItem = $order->carts()->create([
@@ -77,7 +87,6 @@ class CartController extends Controller
 
     public function removeItem(Request $request, $productId)
     {
-
         // Получаем текущего пользователя
         $user = Auth::user();
 
