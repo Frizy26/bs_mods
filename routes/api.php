@@ -1,25 +1,29 @@
 <?php
 
-use App\Http\Resources\{TypeCategoryResource, ProductResource, OrderResource, CartResource, FavouriteResource};
-use App\Http\Controllers\{GetController, OrderController, CartController, ProductController, TypeCategoryController, AuthUserController, FavouriteController};
-use App\Models\{TypeCategory, Product, Order, Cart, Favourite};
+use App\Http\Resources\{TypeCategoryResource, ProductResource, OrderResource, CartResource};
+use App\Http\Controllers\{GetController, OrderController, CartController, ProductController, TypeCategoryController, AuthUserController};
+use App\Models\{TypeCategory, Product, Order, Cart};
 use Laravel\Sanctum\PersonalAccessToken;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Маршруты API
+| API Routes
 |--------------------------------------------------------------------------
 |
-| Здесь вы можете зарегистрировать маршруты API для вашего приложения. Эти
-| маршруты загружаются через RouteServiceProvider, и все они будут
-| присвоены группе промежуточного ПО "api". Сделайте что-то замечательное!
+| Here is where you can register API routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "api" middleware group. Make something great!
 |
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    //Route::get('/get', 'GetController');
 });
 
 //Тип категории продукта
@@ -30,8 +34,6 @@ Route::controller(TypeCategoryController::class)->group(function () {
 //Продукты
 Route::controller(ProductController::class)->group(function () {
     Route::get('/product', 'index');
-    Route::get('/product/{id}', 'show');
-    Route::get('/product/category/{type_category_id}', 'filter');
 });
 
 //Заказы
@@ -43,9 +45,8 @@ Route::controller(OrderController::class)->group(function () {
 Route::controller(CartController::class)->group(function () {
     Route::get('/cart', 'index')->middleware('auth:sanctum');
     Route::post('/cart/add-product/{id}', 'addItem')->middleware('auth:sanctum');
-    Route::delete('/cart/delete-product/{productId}', 'removeItem')->middleware('auth:sanctum');
+    Route::delete('/cart/delete-product/{id}', 'delete')->middleware('auth:sanctum');
 });
-
 
 //API-TOKEN
 Route::post('/personal-access-tokens', [PersonalAccessToken::class, 'store'])->middleware('auth:sanctum');
