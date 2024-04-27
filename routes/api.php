@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Resources\{TypeCategoryResource, ProductResource, OrderResource, CartResource};
-use App\Http\Controllers\{GetController, OrderController, CartController, ProductController, TypeCategoryController, AuthUserController};
-use App\Models\{TypeCategory, Product, Order, Cart};
+use App\Http\Resources\{TypeCategoryResource, ProductResource, OrderResource, CartResource, FavouriteResource};
+use App\Http\Controllers\{GetController, OrderController, CartController, ProductController, TypeCategoryController, AuthUserController, FavouriteController};
+use App\Models\{TypeCategory, Product, Order, Cart, Favourite};
 use Laravel\Sanctum\PersonalAccessToken;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,9 +22,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['middleware' => 'auth:sanctum'], function () {
+//Route::group(['middleware' => 'auth:sanctum'], function () {
     //Route::get('/get', 'GetController');
-});
+//});
 
 //Тип категории продукта
 Route::controller(TypeCategoryController::class)->group(function () {
@@ -34,6 +34,7 @@ Route::controller(TypeCategoryController::class)->group(function () {
 //Продукты
 Route::controller(ProductController::class)->group(function () {
     Route::get('/product', 'index');
+    Route::get('/product/{type_category_id}', 'filter');
 });
 
 //Заказы
@@ -45,8 +46,9 @@ Route::controller(OrderController::class)->group(function () {
 Route::controller(CartController::class)->group(function () {
     Route::get('/cart', 'index')->middleware('auth:sanctum');
     Route::post('/cart/add-product/{id}', 'addItem')->middleware('auth:sanctum');
-    Route::delete('/cart/delete-product/{id}', 'delete')->middleware('auth:sanctum');
+    Route::delete('/cart/delete-product/{productId}', 'removeItem')->middleware('auth:sanctum');
 });
+
 
 //API-TOKEN
 Route::post('/personal-access-tokens', [PersonalAccessToken::class, 'store'])->middleware('auth:sanctum');

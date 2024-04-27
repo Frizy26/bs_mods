@@ -10,6 +10,7 @@ class OrderRequest extends FormRequest
     {
         return [
             'total_price' => ['required'],
+            'is_paid' => ['required'],
         ];
     }
 

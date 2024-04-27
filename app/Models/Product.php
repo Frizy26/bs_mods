@@ -39,13 +39,19 @@ class Product extends Model
         return $this->belongsTo(TypeCategory::class, 'type_category_id');
     }
 
-    public function cart(): HasMany
+    public function cart():HasMany
     {
         return $this->hasMany(Cart::class);
     }
 
-    public function orders(): BelongsToMany
+    public function orders():BelongsToMany
     {
         return $this->belongsToMany(Order::class);
     }
+
+    public function TypeCategory():BelongsTo
+    {
+        return $this->belongsTo(TypeCategory::class);
+    }
+
 }

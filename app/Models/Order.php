@@ -38,11 +38,6 @@ class Order extends Model
 
     public function products():BelongsToMany
     {
-        return $this->belongsToMany(Product::class, Cart::class);
+        return $this->belongsToMany(Product::class, Cart::class)->withPivot('is_paid');
     }
-//
-//    public function getTotalPriceAttribute()
-//    {
-//        return $this->products->sum('price');
-//    }
 }

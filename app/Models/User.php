@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -22,6 +23,10 @@ use Laravel\Sanctum\HasApiTokens;
  *
  * @property Role $role
  * @property Order[] $orders
+ * @property Favourite $favourite
+ * @property mixed $favorites
+ * @property mixed $favorite
+ * @property mixed $createToken
  */
 class User extends Authenticatable
 {
@@ -51,6 +56,11 @@ class User extends Authenticatable
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function favorites():BelongsToMany
+    {
+        return $this->belongsToMany(Product::class, 'favorites');
     }
 
     public static function boot(): void

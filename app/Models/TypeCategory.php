@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TypeCategory extends Model
 {
@@ -10,4 +11,9 @@ class TypeCategory extends Model
         'id',
         'name',
     ];
+
+    public function Product():BelongsTo
+    {
+        return $this->belongsTo(Product::class);
+    }
 }
