@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
  */
+
+//Фабрика для создания записей в таблице пользователей.
 class UserFactory extends Factory
 {
     /**
@@ -18,21 +20,21 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
+            'name' => fake()->name(), // Генерация случайного имени
+            'email' => fake()->unique()->safeEmail(), // Генерация уникального безопасного email
+            'email_verified_at' => now(),  // Установка текущего времени для подтверждения email
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password  Установка фиксированного пароля
+            'remember_token' => Str::random(10), // Генерация случайного токена для "запомнить меня"
         ];
     }
 
     /**
-     * Indicate that the model's email address should be unverified.
+     * Укажите, что адрес электронной почты модели не должен быть подтвержден.
      */
     public function unverified(): static
     {
         return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
+            'email_verified_at' => null, // Установка значения null для подтверждения email
         ]);
     }
 }

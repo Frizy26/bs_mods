@@ -15,14 +15,19 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class TypeCategoryResource extends Resource
 {
+    // Модель, связанная с ресурсом.
     protected static ?string $model = TypeCategory::class;
 
+    // Иконка для навигации к ресурсу.
     protected static ?string $navigationIcon = 'heroicon-o-tag';
 
+    // Метка для навигации к ресурсу.
     protected static ?string $navigationLabel = 'Категории';
 
+    // Группа для навигации к ресурсу.
     protected static ?string $navigationGroup = 'Управление товарами';
 
+    // Определяет форму для создания и редактирования записей.
     public static function form(Form $form): Form
     {
         return $form
@@ -33,6 +38,7 @@ class TypeCategoryResource extends Resource
             ]);
     }
 
+    // Определяет таблицу для отображения записей.
     public static function table(Table $table): Table
     {
         return $table
@@ -62,13 +68,15 @@ class TypeCategoryResource extends Resource
             ]);
     }
 
+    // Получает связанные ресурсы.
     public static function getRelations(): array
     {
         return [
-            //
+            // Здесь могут быть определены связанные ресурсы
         ];
     }
 
+    // Получает страницы ресурса.
     public static function getPages(): array
     {
         return [

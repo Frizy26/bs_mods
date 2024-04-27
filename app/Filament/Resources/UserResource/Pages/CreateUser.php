@@ -8,7 +8,7 @@ use Filament\Resources\Pages\CreateRecord;
 
 class CreateUser extends CreateRecord
 {
+    // Указание ресурса, с которым связана страница.
     protected static string $resource = UserResource::class;
-
 
 }

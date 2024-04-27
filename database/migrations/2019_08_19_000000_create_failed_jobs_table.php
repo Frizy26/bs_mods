@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        //Создание таблицы
         Schema::create('failed_jobs', function (Blueprint $table) {
             $table->id();
             $table->string('uuid')->unique();
@@ -27,6 +28,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        //удаление таблицы
         Schema::dropIfExists('failed_jobs');
     }
 };

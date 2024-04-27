@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class RoleSeeder extends Seeder
 {
+    //Заполнение таблицы ролей
     public function run()
     {
         DB::table('roles')->insert([

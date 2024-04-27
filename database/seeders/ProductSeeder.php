@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class ProductSeeder extends Seeder
 {
+    //Заполнение таблицы продукта
     public function run(): void
     {
         DB::table('products')->insert([

@@ -16,14 +16,19 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ProductResource extends Resource
 {
+    // Модель, связанная с ресурсом.
     protected static ?string $model = Product::class;
 
+    // Иконка для навигации к ресурсу.
     protected static ?string $navigationIcon = 'heroicon-o-truck';
 
+    // Метка для навигации к ресурсу.
     protected static ?string $navigationLabel = 'Товары';
 
+    // Группа для навигации к ресурсу.
     protected static ?string $navigationGroup = 'Управление товарами';
 
+    // Определяет форму для создания и редактирования записей.
     public static function form(Form $form): Form
     {
         return $form
@@ -55,6 +60,7 @@ class ProductResource extends Resource
     /**
      * @throws \Exception
      */
+    // Определяет таблицу для отображения записей.
     public static function table(Table $table): Table
     {
         return $table
@@ -95,6 +101,7 @@ class ProductResource extends Resource
             ]);
     }
 
+    // Получает связанные ресурсы.
     public static function getRelations(): array
     {
         return [
@@ -102,6 +109,7 @@ class ProductResource extends Resource
         ];
     }
 
+    // Получает страницы ресурса.
     public static function getPages(): array
     {
         return [

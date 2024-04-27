@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -22,11 +23,16 @@ use Laravel\Sanctum\HasApiTokens;
  *
  * @property Role $role
  * @property Order[] $orders
+ * @property Favourite $favourite
+ * @property mixed $favorites
+ * @property mixed $favorite
+ * @property mixed $createToken
  */
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    //Атрибуты, которые можно массово назначать.
     protected $fillable = [
         'name',
         'email',
@@ -35,24 +41,35 @@ class User extends Authenticatable
         'image',
         'role_id',
     ];
+    //Атрибуты, которые скрыты от вывода.
     protected $hidden = [
         'password',
         'remember_token',
     ];
+    //Преобразование атрибутов в нативные типы.
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
+    // Получить роль пользователя.
     public function role():BelongsTo
     {
         return $this->belongsTo(Role::class);
     }
 
+    //Получить заказы пользователя.
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
     }
 
+    //Получить избранные продукты пользователя.
+    public function favorites():BelongsToMany
+    {
+        return $this->belongsToMany(Product::class, 'favorites');
+    }
+
+    //Обработчик события создания модели.
     public static function boot(): void
     {
         parent::boot();

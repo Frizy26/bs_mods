@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
+    //Заполнение таблицы пользрвателей
     public function run(): void
     {
         DB::table('users')->insert([

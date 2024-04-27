@@ -11,30 +11,35 @@ use Illuminate\Support\Facades\Route;
 class RouteServiceProvider extends ServiceProvider
 {
     /**
-     * The path to your application's "home" route.
+     * Путь к "домашнему" маршруту вашего приложения.
      *
-     * Typically, users are redirected here after authentication.
+     * Как правило, пользователи перенаправляются сюда после аутентификации.
      *
      * @var string
      */
     public const HOME = '/home';
 
     /**
-     * Define your route model bindings, pattern filters, and other route configuration.
+     * Определите привязки к модели маршрута, фильтры шаблонов и другую конфигурацию маршрута.
      */
     protected $namespace = 'App\\Http\\Controllers\\';
 
+    //Загрузка дополнительных условий маршрутизации приложения.
     public function boot(): void
     {
+        // Определение ограничений для API маршрутов
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
 
+        // Определение маршрутов для приложения
         $this->routes(function () {
+            // Группа маршрутов API с префиксом 'api-mods'
             Route::middleware('api')
                 ->prefix('api-mods')
                 ->group(base_path('routes/api.php'));
 
+            // Группа маршрутов для веб-приложения
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
         });

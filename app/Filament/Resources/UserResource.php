@@ -16,16 +16,22 @@ use Illuminate\Support\Facades\Hash;
 
 class UserResource extends Resource
 {
+    //Модель, связанная с ресурсом.
     protected static ?string $model = User::class;
 
+    //Иконка для навигации к ресурсу.
     protected static ?string $navigationIcon = 'heroicon-o-user-circle';
 
+    //Метка для навигации к ресурсу.
     protected static ?string $navigationLabel = 'Пользователи';
 
+    //Группа для навигации к ресурсу.
     protected static ?string $navigationGroup = 'Управление пользователями';
 
+    //Определяет форму для создания и редактирования записей.
     public static function form(Form $form): Form
     {
+
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
@@ -52,6 +58,7 @@ class UserResource extends Resource
             ]);
     }
 
+    //Определяет таблицу для отображения записей.
     public static function table(Table $table): Table
     {
         return $table
@@ -89,13 +96,15 @@ class UserResource extends Resource
             ]);
     }
 
+    //Получает связанные ресурсы.
     public static function getRelations(): array
     {
         return [
-            //
+            // Здесь могут быть определены связанные ресурсы
         ];
     }
 
+    //Получает страницы ресурса.
     public static function getPages(): array
     {
         return [
@@ -106,9 +115,10 @@ class UserResource extends Resource
         ];
     }
 
+    //Изменяет данные перед созданием записи.
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $data['password'] = Hash::make($data['password']);
+        $data['password'] = Hash::make($data['password']); //
         return $data;
     }
 }

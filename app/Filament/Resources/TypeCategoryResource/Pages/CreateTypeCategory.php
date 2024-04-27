@@ -8,5 +8,6 @@ use Filament\Resources\Pages\CreateRecord;
 
 class CreateTypeCategory extends CreateRecord
 {
+    // Указание ресурса, с которым связана страница.
     protected static string $resource = TypeCategoryResource::class;
 }

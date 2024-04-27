@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
+        //Создание таблицы
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('order_id')->nullable();
@@ -21,6 +22,7 @@ return new class extends Migration {
 
     public function down(): void
     {
+        //удаление таблицы
         Schema::dropIfExists('carts');
     }
 };

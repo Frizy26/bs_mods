@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\CartRequest;
 use App\Http\Resources\CartResource;
@@ -17,21 +18,25 @@ class CartController extends Controller
 {
     public function index()
     {
+        //Возвращает коллекцию всех элементов корзины.
         return CartResource::collection(Cart::all());
     }
 
     public function store(CartRequest $request)
     {
+        //Создает новый элемент корзины.
         return Cart::create($request->validated());
     }
 
     public function show(Cart $cart)
     {
+        //Возвращает информацию о конкретном элементе корзины.
         return $cart;
     }
 
     public function update(CartRequest $request, Cart $cart)
     {
+        //Обновляет информацию о конкретном элементе корзины.
         $cart->update($request->validated());
 
         return $cart;
@@ -39,6 +44,7 @@ class CartController extends Controller
 
     public function destroy(Cart $cart)
     {
+        //Удаляет элемент корзины.
         $cart->delete();
 
         return response()->json();
@@ -69,24 +75,33 @@ class CartController extends Controller
         ], 201);
     }
 
-    public function delete(Request $request, $productId) //не работает
+    public function removeItem(Request $request, $productId)
     {
-        // Получаем текущую корзину из сессии или создаем новую
-        $cart = Cart::find($request->session()->get('cart_id'));
 
-        if (!$cart) {
-            $cart = new Cart();
-            $cart->save();
-            $request->session()->put('cart_id', $cart->id);
+        // Получаем текущего пользователя
+        $user = Auth::user();
+
+        // Ищем текущий неоплаченный заказ пользователя
+        $order = $user->orders()->where('is_paid', false)->first();
+        if (!$order) {
+            return response()->json(['error' => 'Нет активных заказов'], 404);
+        }
+
+        // Ищем товар в корзине пользователя
+        $cartItem = $order->carts()->where('id', $productId)->first();
+        if (!$cartItem) {
+            return response()->json(['error' => 'Продукт не найден в корзине'], 404);
         }
 
         // Удаляем товар из корзины
-        $product = Product::find($productId);
-        if ($product) {
-            $cart->product()->detach($product);
+        $cartItem->delete();
+
+        // Проверяем, остались ли еще товары в заказе
+        if ($order->carts->isEmpty()) {
+            // Если товаров не осталось, удаляем заказ
+            $order->delete();
         }
 
-        // Возвращаем ответ
-        return response()->json(['message' => 'Товар удален из корзины']);
+        return response()->json(['message' => 'Продукт удален из корзины'], 200);
     }
 }

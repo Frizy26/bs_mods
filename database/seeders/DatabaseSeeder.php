@@ -2,16 +2,16 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Заполните базу данных приложения.
      */
     public function run(): void
     {
+        // Вызов сеялок для заполнения таблиц
         $this->call([
             RoleSeeder::class,
             UserSeeder::class,
@@ -20,12 +20,5 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             CartSeeder::class,
         ]);
-
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
     }
 }

@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        //Создание таблицы
         Schema::create('personal_access_tokens', function (Blueprint $table) {
             $table->id();
             $table->morphs('tokenable');
@@ -28,6 +29,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        //удаление таблицы
         Schema::dropIfExists('personal_access_tokens');
     }
 };

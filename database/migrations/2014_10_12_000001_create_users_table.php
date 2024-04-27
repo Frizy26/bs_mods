@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        //Создание таблицы
         Schema::create('users', function (Blueprint $table) {
 
             $table->id();
@@ -19,7 +20,6 @@ return new class extends Migration
             $table->string('login');
             $table->string('password');
             $table->string('image')->nullable();
-            $table->string('api_token')->nullable();
             $table->unsignedBigInteger('role_id')->default(2);
 
             $table->foreign('role_id')->references('id')->on('roles');
@@ -34,6 +34,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        //удаление таблицы
         Schema::dropIfExists('users');
     }
 };

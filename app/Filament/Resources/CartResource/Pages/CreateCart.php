@@ -8,5 +8,6 @@ use Filament\Resources\Pages\CreateRecord;
 
 class CreateCart extends CreateRecord
 {
+    // Указание ресурса, с которым связана страница.
     protected static string $resource = CartResource::class;
 }

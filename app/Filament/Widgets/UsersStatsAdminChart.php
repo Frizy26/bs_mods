@@ -9,17 +9,22 @@ use Flowframe\Trend\TrendValue;
 
 class UsersStatsAdminChart extends ChartWidget
 {
+    //Заголовок виджета.
     protected static ?string $heading = 'Статистика';
 
+    //Цвет виджета.
     protected static string $color = 'info';
 
+    //Количество столбцов, занимаемых виджетом в макете.
     protected int | string | array $columnSpan = [
       'md' => 2,
         'xl' => 2,
     ];
 
+    //Фильтр данных для графика.
     public ?string $filter = 'year';
 
+    //Получает данные для построения графика.
     protected function getData(): array
     {
         $data = Trend::model(User::class)
@@ -41,6 +46,7 @@ class UsersStatsAdminChart extends ChartWidget
         ];
     }
 
+    //Получает доступные фильтры для выбора диапазона данных на графике.
     protected function getFilters(): ?array
     {
         return [
@@ -51,6 +57,7 @@ class UsersStatsAdminChart extends ChartWidget
         ];
     }
 
+    //Возвращает тип графика.
     protected function getType(): string
     {
         return 'line';

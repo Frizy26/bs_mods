@@ -15,14 +15,19 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CartResource extends Resource
 {
+    // Указание модели, связанной с ресурсом.
     protected static ?string $model = Cart::class;
 
+    // Иконка для навигации к ресурсу.
     protected static ?string $navigationIcon = 'heroicon-o-shopping-cart';
 
+    // Метка для навигации к ресурсу.
     protected static ?string $navigationLabel = 'Корзина';
 
+    // Группа для навигации к ресурсу.
     protected static ?string $navigationGroup = 'Управление корзиной';
 
+    // Определение формы для создания и редактирования записей.
     public static function form(Form $form): Form
     {
         return $form
@@ -36,6 +41,7 @@ class CartResource extends Resource
             ]);
     }
 
+    // Определение таблицы для отображения записей.
     public static function table(Table $table): Table
     {
         return $table
@@ -68,13 +74,15 @@ class CartResource extends Resource
             ]);
     }
 
+    // Получение связанных ресурсов.
     public static function getRelations(): array
     {
         return [
-            //
+            // Здесь могут быть определены связанные ресурсы
         ];
     }
 
+    // Получение страниц ресурса.
     public static function getPages(): array
     {
         return [

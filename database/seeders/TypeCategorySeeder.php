@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class TypeCategorySeeder extends Seeder
 {
+    //Заполнение таблицы категорий
     public function run()
     {
         DB::table('type_categories')->insert([

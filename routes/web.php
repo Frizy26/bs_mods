@@ -1,16 +1,17 @@
 <?php
 
 use App\Http\Controllers\AuthUserController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Веб-маршруты
 |--------------------------------------------------------------------------
 |
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
+| Здесь вы можете зарегистрировать веб-маршруты для вашего приложения. Эти
+| маршруты загружаются через RouteServiceProvider, и все они будут
+| присвоены группе промежуточного ПО "web". Сделайте что-то замечательное!
 |
 */
 
@@ -22,3 +23,6 @@ Route::post('/login', [AuthUserController::class, 'login']);
 
 //Деавторизация
 Route::delete('/logout', [AuthUserController::class, 'logout'])->middleware('auth');
+
+//Поисковая строка
+Route::get('/search', [SearchController::class, 'search'])->name('search');

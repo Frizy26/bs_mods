@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up()
     {
+        //Создание таблицы
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('image');
@@ -24,6 +25,7 @@ return new class extends Migration {
 
     public function down()
     {
+        //удаление таблицы
         Schema::dropIfExists('products');
     }
 };

@@ -15,14 +15,19 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class OrderResource extends Resource
 {
+    // Модель, связанная с ресурсом.
     protected static ?string $model = Order::class;
 
+    // Иконка для навигации к ресурсу.
     protected static ?string $navigationIcon = 'heroicon-o-archive-box-arrow-down';
 
+    // Метка для навигации к ресурсу.
     protected static ?string $navigationLabel = 'Заказ';
 
+    // Группа для навигации к ресурсу.
     protected static ?string $navigationGroup = 'Управление корзиной';
 
+    // Определяет форму для создания и редактирования записей.
     public static function form(Form $form): Form
     {
         return $form
@@ -36,6 +41,7 @@ class OrderResource extends Resource
             ]);
     }
 
+    // Определяет таблицу для отображения записей.
     public static function table(Table $table): Table
     {
         return $table
@@ -69,13 +75,15 @@ class OrderResource extends Resource
             ]);
     }
 
+    // Получает связанные ресурсы.
     public static function getRelations(): array
     {
         return [
-            //
+            // Здесь могут быть определены связанные ресурсы
         ];
     }
 
+    // Получает страницы ресурса.
     public static function getPages(): array
     {
         return [

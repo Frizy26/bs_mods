@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
+        //Создание таблицы
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->decimal('total_price', 8, 2);
@@ -21,6 +22,7 @@ return new class extends Migration {
 
     public function down(): void
     {
+        //удаление таблицы
         Schema::dropIfExists('orders');
     }
 };
