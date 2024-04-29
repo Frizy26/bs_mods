@@ -34,6 +34,7 @@ Route::controller(TypeCategoryController::class)->group(function () {
 //Продукты
 Route::controller(ProductController::class)->group(function () {
     Route::get('/product', 'index');
+    Route::get('/product/category/{type_category_id}', 'filter');
 });
 
 //Заказы

@@ -64,4 +64,5 @@ class ProductController extends Controller
         // Возвращение коллекции ресурсов отфильтрованных товаров
         return ProductResource::collection($filteredProducts);
     }
+
 }
