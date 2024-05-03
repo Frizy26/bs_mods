@@ -5,14 +5,20 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
+
 
 class ProductController extends Controller
 {
     //Возвращает коллекцию всех товаров.
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->filled(['priceStart', 'priceEnd'])) {
+            return ProductResource::collection(
+                (new Product)->getProductByPrice($request->priceStart, $request->priceEnd)
+            );
+        }
+
         return ProductResource::collection(Product::all());
     }
 
@@ -64,5 +70,7 @@ class ProductController extends Controller
         // Возвращение коллекции ресурсов отфильтрованных товаров
         return ProductResource::collection($filteredProducts);
     }
+
+
 
 }

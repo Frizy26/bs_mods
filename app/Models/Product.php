@@ -59,4 +59,8 @@ class Product extends Model
         return $this->belongsTo(TypeCategory::class);
     }
 
+    public function getProductByPrice($priceStar, $priceEnd)
+    {
+        return $this->whereBetween('price', [$priceStar, $priceEnd])->get();
+    }
 }

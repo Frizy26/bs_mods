@@ -6,6 +6,7 @@ use App\Http\Requests\TypeCategoryRequest;
 use App\Http\Resources\TypeCategoryResource;
 use App\Models\TypeCategory;
 
+
 class TypeCategoryController extends Controller
 {
     //Возвращает коллекцию всех категорий типов.
