@@ -59,7 +59,7 @@ class AuthUserController extends Controller
         }
 
         // Возвращение ошибки при неудачной аутентификации
-        return response()->json(['error' => 'Неавторизованный'], 401);
+        return response()->json(['error' => 'Пользователь не существует. Неверный логин или пароль'], 401);
     }
 
     public function logout(Request $request)
@@ -74,6 +74,6 @@ class AuthUserController extends Controller
         $request->session()->regenerateToken();
 
         // Возвращение ответа без содержимого (204 No Content)
-        return response()->noContent();
+        return response()->json(['message' => 'Выход из учетной записи'], 200);
     }
 }
