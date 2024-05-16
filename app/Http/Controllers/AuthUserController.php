@@ -73,7 +73,7 @@ class AuthUserController extends Controller
         // Перегенерация токена сессии пользователя
         $request->session()->regenerateToken();
 
-        // Возвращение ответа без содержимого (204 No Content)
+        // Возвращение ответа
         return response()->json(['message' => 'Выход из учетной записи'], 200);
     }
 }
