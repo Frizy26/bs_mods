@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\TypeCategory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 
 /**
@@ -26,7 +27,7 @@ class ProductResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'image' => $this->image,
+            'image' => Storage::disk("public")->url($this->image),
             'title' => $this->title,
             'comment' => $this->comment,
             'price' => $this->price,
