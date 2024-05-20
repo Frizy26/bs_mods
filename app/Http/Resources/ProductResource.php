@@ -2,10 +2,8 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Product;
-use App\Models\TypeCategory;
+use App\Http\Support\Resources\BaseJsonResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -20,7 +18,7 @@ use Illuminate\Support\Facades\Storage;
  * @property mixed $year
  * @property mixed $type_category_id
  */
-class ProductResource extends JsonResource
+class ProductResource extends BaseJsonResource
 {
     //Преобразует ресурс в массив.
     public function toArray(Request $request): array
@@ -32,7 +30,8 @@ class ProductResource extends JsonResource
             'comment' => $this->comment,
             'price' => $this->price,
             'year' => $this->year,
-            'type_category_id' => $this->type_category_id,
+            'type_category_id' => new TypeCategoryResource($this->whenLoaded('category')),
+            'orders' => OrderResource::collection($this->whenLoaded('orders')),
         ];
     }
 }

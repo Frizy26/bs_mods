@@ -2,24 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Queries\ProductQuery;
 use App\Http\Requests\ProductRequest;
 use App\Http\Resources\ProductResource;
+use App\Http\Support\Pagination\PageBuilderFactory;
 use App\Models\Product;
+use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Request;
 
 
 class ProductController extends Controller
 {
     //Возвращает коллекцию всех товаров.
-    public function index(Request $request)
+    public function index(PageBuilderFactory $pageBuilderFactory, ProductQuery $query): Responsable
     {
-        if ($request->filled(['priceStart', 'priceEnd'])) {
-            return ProductResource::collection(
-                (new Product)->getProductByPrice($request->priceStart, $request->priceEnd)
-            );
-        }
-
-        return ProductResource::collection(Product::all());
+        return ProductResource::collectPage(
+            $pageBuilderFactory->fromQuery($query)->build()
+        );
     }
 
     //Создает новый товар.
@@ -70,7 +69,4 @@ class ProductController extends Controller
         // Возвращение коллекции ресурсов отфильтрованных товаров
         return ProductResource::collection($filteredProducts);
     }
-
-
-
 }

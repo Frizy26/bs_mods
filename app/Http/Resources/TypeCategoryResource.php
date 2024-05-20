@@ -18,7 +18,7 @@ class TypeCategoryResource extends JsonResource
     {
         return [
             'id' => $this->id,
-          'name' => $this->name,
+            'name' => $this->name,
         ];
     }
 }

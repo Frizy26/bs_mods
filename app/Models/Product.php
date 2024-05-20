@@ -50,7 +50,7 @@ class Product extends Model
     //Получить заказы, в которых содержится данный продукт.
     public function orders():BelongsToMany
     {
-        return $this->belongsToMany(Order::class);
+        return $this->belongsToMany(Order::class, Cart::class);
     }
 
     //Получить категорию продукта.
@@ -59,8 +59,18 @@ class Product extends Model
         return $this->belongsTo(TypeCategory::class);
     }
 
-    public function getProductByPrice($priceStar, $priceEnd)
+    public function scopePrice($query, $value)
     {
-        return $this->whereBetween('price', [$priceStar, $priceEnd])->get();
+        $priceRange = explode('|', $value);
+        if (count($priceRange) === 2) {
+            $query->whereBetween('price', [$priceRange[0], $priceRange[1]]);
+        }
     }
+
+//    public function scopeCategoryId($query, int $cityId)
+//    {
+//        return $query->with('typeCategory', function ($query) use ($cityId) {
+//            $query->where('type_category', $cityId);
+//        })->whereRelation('typeCategory', 'type_category', $cityId);
+//    }
 }
