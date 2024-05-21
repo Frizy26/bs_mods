@@ -10,7 +10,7 @@ return new class extends Migration {
         //Создание таблицы
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('image');
+            $table->string('download_free')->nullable();
             $table->string('title');
             $table->string('comment');
             $table->decimal('price', 8, 2);

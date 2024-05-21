@@ -14,18 +14,27 @@ class ProductSeeder extends Seeder
     {
         DB::table('products')->insert([
             [
-                'image' => 'Banner_1.png',
+                'download_free' => '',
                 'title' => 'MagicGun',
                 'comment' => 'Gun',
                 'price' => '299.49',
                 'year' => '2021',
                 'type_category_id' => '1',
-            ],            [
-                'image' => 'Banner_1.png',
+            ],
+            [
+                'download_free' => '',
                 'title' => 'MagicGun',
                 'comment' => 'Gun',
-                'price' => '1239.49',
+                'price' => '990.49',
                 'year' => '2022',
+                'type_category_id' => '1',
+            ],
+            [
+                'download_free' => 'https://drive.google.com/file/d/1bst_iAIPcV4MT8tpikwrjkPG5oyIOzGM/view?usp=sharing',
+                'title' => 'MagicGun',
+                'comment' => 'Gun',
+                'price' => '0',
+                'year' => '2024',
                 'type_category_id' => '2',
             ],
         ]);

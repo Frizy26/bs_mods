@@ -14,7 +14,7 @@ class TypeCategorySeeder extends Seeder
     {
         DB::table('type_categories')->insert([
             [
-                'name' => 'Новые',
+                'name' => 'Платные',
             ],
             [
                 'name' => 'Бесплатные',

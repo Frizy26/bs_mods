@@ -12,6 +12,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * @property int $id
  * @property string $image
+ * @property string $image_2
+ * @property string $image_3
+ * @property string $image_4
+ * @property string $image_5
+ * @property string $download_free
  * @property string $title
  * @property string $comment
  * @property int $price
@@ -28,6 +33,11 @@ class Product extends Model
     protected $fillable = [
         'id',
         'image',
+        'image_2',
+        'image_3',
+        'image_4',
+        'image_5',
+        'download_free',
         'title',
         'comment',
         'price',

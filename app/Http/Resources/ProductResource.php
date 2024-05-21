@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 /**
  * @property mixed $id
  * @property mixed $name
- * @property mixed $image
+ * @property mixed $download_free
  * @property mixed $title
  * @property mixed $password
  * @property mixed $comment
@@ -25,7 +25,8 @@ class ProductResource extends BaseJsonResource
     {
         return [
             'id' => $this->id,
-            'image' => Storage::disk("public")->url($this->image),
+            //'image' => Storage::disk("public")->url($this->image),
+            'download_free' => $this->download_free,
             'title' => $this->title,
             'comment' => $this->comment,
             'price' => $this->price,

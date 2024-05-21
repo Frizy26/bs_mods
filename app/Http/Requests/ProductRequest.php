@@ -10,7 +10,7 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'image' => ['required'],
+            'download_free' => ['required'],
             'title' => ['required'],
             'comment' => ['required'],
             'price' => ['required', 'numeric'],
@@ -18,6 +18,7 @@ class ProductRequest extends FormRequest
         ];
     }
 
+    //Определяет, авторизован ли пользователь для выполнения данного запроса.
     public function authorize()
     {
         // По умолчанию разрешаем выполнение запроса

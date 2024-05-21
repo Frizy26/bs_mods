@@ -33,14 +33,12 @@ class ProductResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\FileUpload::make('image')
-                    ->disk('public')
-                    ->image()
-                    ->imageEditor()
-                    ->required(),
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('download_free')
+                    ->required()
+                    ->nullable(),
                 Forms\Components\TextInput::make('comment')
                     ->required()
                     ->maxLength(255),

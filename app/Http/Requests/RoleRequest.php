@@ -15,6 +15,7 @@ class RoleRequest extends FormRequest
         ];
     }
 
+    //Определяет, авторизован ли пользователь для выполнения данного запроса.
     public function authorize()
     {
         // По умолчанию разрешаем выполнение запроса

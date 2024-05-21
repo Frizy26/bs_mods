@@ -8,10 +8,13 @@ return new class extends Migration {
     public function up(): void
     {
         //Создание таблицы
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('product_images', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('code');
+            $table->string('image');
+            $table->unsignedBigInteger('product_id');
+
+            $table->foreign('product_id')->references('id')->on('products');
+
             $table->timestamps();
         });
     }
@@ -19,6 +22,6 @@ return new class extends Migration {
     public function down(): void
     {
         //удаление таблицы
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('product_images');
     }
 };

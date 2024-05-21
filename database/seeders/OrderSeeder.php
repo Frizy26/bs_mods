@@ -14,7 +14,7 @@ class OrderSeeder extends Seeder
     {
         DB::table('orders')->insert([
             [
-                'total_price' => '499.99', // Общая стоимость заказа
+                'total_price' => '1000', // Общая стоимость заказа
                 'user_id' => '1', // ID пользователя, сделавшего заказ
             ],
         ]);

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Resources\{TypeCategoryResource, ProductResource, OrderResource, CartResource};
+use App\Http\Resources\{TypeCategoryResource, ProductResource, OrderResource, CartResource, UserResource};
 use App\Http\Controllers\{GetController, OrderController, CartController, ProductController, TypeCategoryController, AuthUserController};
 use App\Models\{TypeCategory, Product, Order, Cart};
 use Laravel\Sanctum\PersonalAccessToken;
@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    return new UserResource($request->user());
 });
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
