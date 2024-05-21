@@ -63,7 +63,6 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('image')->disk('public'),
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('comment')
@@ -72,8 +71,7 @@ class ProductResource extends Resource
                     ->money()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('year'),
-                Tables\Columns\TextColumn::make('type_category_id')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('category.name')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
