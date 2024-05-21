@@ -3,20 +3,13 @@
 namespace App\Http\Resources;
 
 use App\Http\Support\Resources\BaseJsonResource;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 
 /**
- * @property mixed $id
- * @property mixed $name
- * @property mixed $download_free
- * @property mixed $title
- * @property mixed $password
- * @property mixed $comment
- * @property mixed $price
- * @property mixed $year
- * @property mixed $type_category_id
+ * @mixin Product
  */
 class ProductResource extends BaseJsonResource
 {
@@ -31,6 +24,7 @@ class ProductResource extends BaseJsonResource
             'comment' => $this->comment,
             'price' => $this->price,
             'year' => $this->year,
+            'images' => $this->getImagesPath(),
             'type_category_id' => new TypeCategoryResource($this->whenLoaded('category')),
             'orders' => OrderResource::collection($this->whenLoaded('orders')),
         ];

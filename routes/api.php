@@ -50,6 +50,8 @@ Route::controller(CartController::class)->group(function () {
     Route::delete('/cart/delete-product/{id}', 'removeItem')->middleware('auth:sanctum');
 });
 
+
+
 //API-TOKEN
 Route::post('/personal-access-tokens', [PersonalAccessToken::class, 'store'])->middleware('auth:sanctum');
 Route::delete('/personal-access-tokens/{tokenId}', [PersonalAccessToken::class, 'delete'])->middleware('auth:sanctum');

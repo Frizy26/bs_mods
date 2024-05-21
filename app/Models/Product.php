@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @method static find($product_id)
@@ -70,6 +71,18 @@ class Product extends Model
         if (count($priceRange) === 2) {
             $query->whereBetween('price', [$priceRange[0], $priceRange[1]]);
         }
+    }
+
+    public function images(): HasMany
+    {
+        return $this->hasMany(ProductImage::class);
+    }
+
+    public function getImagesPath()
+    {
+        return $this->images->pluck('image')->map(function ($image) {
+            return Storage::disk('public')->url($image);
+        })->toArray();
     }
 
 //    public function scopeCategoryId($query, int $cityId)
