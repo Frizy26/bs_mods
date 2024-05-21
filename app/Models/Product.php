@@ -32,11 +32,6 @@ class Product extends Model
     //Атрибуты, которые можно массово назначать.
     protected $fillable = [
         'id',
-        'image',
-        'image_2',
-        'image_3',
-        'image_4',
-        'image_5',
         'download_free',
         'title',
         'comment',
